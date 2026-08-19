@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahmed Sayed Farrag Eleraky — Aircraft Maintenance Engineer &amp; UAV / AI Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   TOKENS
+============================================================ */
+:root{
+  --charcoal:#0a0c0e;
+  --graphite:#12161a;
+  --graphite-2:#181d22;
+  --hairline:rgba(154,160,166,0.16);
+  --titanium:#9aa0a6;
+  --paper:#eeeae1;
+  --paper-dim:#c9c5ba;
+  --blueprint:#3e7ca6;
+  --blueprint-dim:#28495f;
+  --amber:#e8a33d;
+  --amber-dim:#7a5a24;
+  --signal:#c2452f;
+  --wash-1: radial-gradient(ellipse 120% 90% at 20% -10%, rgba(62,124,166,0.20), transparent 55%),
+            radial-gradient(ellipse 90% 70% at 100% 110%, rgba(232,163,61,0.10), transparent 60%);
+  --grid-line: repeating-linear-gradient(0deg, transparent, transparent 39px, var(--hairline) 40px),
+               repeating-linear-gradient(90deg, transparent, transparent 39px, var(--hairline) 40px);
+  --ff-display:'Fraunces', serif;
+  --ff-mono:'IBM Plex Mono', monospace;
+  --ff-body:'Inter', sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--charcoal);
+  color:var(--paper);
+  font-family:var(--ff-body);
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;
+}
+::selection{background:var(--amber);color:var(--charcoal);}
+
+/* ============================================================
+   SCROLL CONTAINER
+============================================================ */
+#scroller{
+  height:100vh;
+  height:100dvh;
+  overflow-y:scroll;
+  overflow-x:hidden;
+  scroll-snap-type:y mandatory;
+}
+.section{
+  position:relative;
+  height:100vh;
+  height:100dvh;
+  width:100%;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:clamp(64px,10vh,110px) 8vw clamp(44px,7vh,70px) 8vw;
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+.section-inner{
+  position:relative;
+  z-index:3;
+  width:100%;
+  max-width:1280px;
+  margin:0 auto;
+  flex-shrink:0;
+}
+.bg-artistic{background:var(--charcoal); background-image:var(--wash-1);}
+.bg-technical{background:var(--graphite); background-image:var(--grid-line), var(--wash-1);}
+
+.noise{
+  position:fixed; inset:0; z-index:50; pointer-events:none; opacity:0.035; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.vignette{position:fixed;inset:0;z-index:40;pointer-events:none;
+  box-shadow: inset 0 0 10vw rgba(0,0,0,0.4);}
+
+/* ============================================================
+   TYPE
+============================================================ */
+.eyebrow{
+  font-family:var(--ff-mono); font-size:0.68rem; letter-spacing:0.24em; text-transform:uppercase;
+  color:var(--amber); display:flex; align-items:center; gap:10px; margin-bottom:clamp(12px,2.4vh,22px);
+}
+.eyebrow::before{content:'';width:26px;height:1px;background:var(--amber);display:inline-block;}
+h1,h2,h3{font-family:var(--ff-display); font-weight:600; line-height:1.02; letter-spacing:-0.01em;}
+h2{font-size:clamp(1.7rem,3.6vw,2.9rem); margin-bottom:clamp(0.5rem,1.4vh,1rem);}
+p.lead{font-size:clamp(0.88rem,1.1vw,1.02rem); color:var(--paper-dim); line-height:1.6; max-width:640px; font-weight:300;}
+.mono-small{font-family:var(--ff-mono); font-size:0.72rem; letter-spacing:0.14em; color:var(--titanium); text-transform:uppercase;}
+
+/* ============================================================
+   SIDE NAV
+============================================================ */
+.side-nav{
+  position:fixed; right:34px; top:50%; transform:translateY(-50%); z-index:60;
+  display:flex; flex-direction:column; gap:20px;
+}
+.side-nav a{
+  position:relative; width:9px; height:9px; border-radius:50%;
+  border:1px solid var(--titanium); background:transparent; transition:all .35s ease;
+  display:block;
+}
+.side-nav a::after{
+  content:attr(data-label);
+  position:absolute; right:22px; top:50%; transform:translateY(-50%);
+  font-family:var(--ff-mono); font-size:0.62rem; letter-spacing:0.16em; color:var(--titanium);
+  white-space:nowrap; opacity:0; transition:opacity .3s ease; text-transform:uppercase;
+}
+.side-nav a:hover::after{opacity:1;}
+.side-nav a.active{background:var(--amber); border-color:var(--amber); box-shadow:0 0 0 4px rgba(232,163,61,0.15);}
+.side-nav a.active::after{opacity:1; color:var(--amber);}
+@media (max-width:820px){ .side-nav{display:none;} }
+
+/* progress rail */
+.rail{position:fixed; left:0; top:0; width:2px; height:100vh; z-index:60; background:var(--hairline);}
+.rail-fill{width:100%; background:linear-gradient(180deg,var(--blueprint),var(--amber)); height:0%; transition:height .25s linear;}
+
+/* corner tag */
+.corner-tag{
+  position:fixed; left:34px; bottom:28px; z-index:60; font-family:var(--ff-mono);
+  font-size:0.62rem; letter-spacing:0.16em; color:var(--titanium); text-transform:uppercase;
+  display:flex; flex-direction:column; gap:3px;
+}
+.corner-tag span{opacity:0.75;}
+@media (max-width:820px){ .corner-tag{display:none;} }
+
+/* ============================================================
+   HERO
+============================================================ */
+#home{padding:clamp(28px,6vh,72px) 0 !important; justify-content:center; overflow:hidden;}
+.hero-photo{
+  position:absolute; inset:0; z-index:1;
+  background-image:url('hero-photo.jpg');
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-position:22% 78%;
+}
+.hero-scrim{
+  position:absolute; inset:0; z-index:2;
+  background:
+    linear-gradient(90deg, rgba(8,10,12,0.96) 0%, rgba(8,10,12,0.88) 30%, rgba(8,10,12,0.5) 48%, rgba(8,10,12,0.1) 62%, transparent 72%),
+    linear-gradient(0deg, rgba(8,10,12,0.88) 0%, rgba(8,10,12,0.22) 30%, rgba(8,10,12,0.06) 55%, rgba(8,10,12,0.35) 100%);
+}
+#hero-canvas{position:absolute; inset:0; z-index:3; opacity:0.28; mix-blend-mode:screen;}
+.hero-grid-overlay{position:absolute; inset:0; z-index:3; background-image:var(--grid-line); opacity:0.14; mask-image:linear-gradient(90deg, black 0%, black 40%, transparent 65%);}
+.hero-content{position:relative; z-index:5; padding:0 6vw 0 7vw; max-width:min(50vw,720px); width:auto; max-height:100%; overflow-y:auto; scrollbar-width:none;}
+.hero-content::-webkit-scrollbar{display:none;}
+.hero-name{font-size:clamp(1.75rem,3vw,3.1rem); font-weight:600; line-height:1.1;}
+.hero-name em{font-style:italic; font-weight:500; color:var(--blueprint); font-family:var(--ff-display);}
+.hero-sub{margin-top:clamp(10px,1.6vh,16px); max-width:100%; font-size:clamp(0.92rem,1.2vw,1.05rem); color:var(--paper-dim); line-height:1.55;}
+.ticker{
+  margin-top:clamp(12px,1.8vh,20px); font-family:var(--ff-mono); font-size:0.64rem; letter-spacing:0.07em;
+  color:var(--blueprint); height:18px; overflow:hidden; position:relative; text-transform:uppercase;
+}
+.ticker-item{position:absolute; inset:0; opacity:0; transform:translateY(8px); transition:opacity .5s ease, transform .5s ease;}
+.ticker-item.active{opacity:1; transform:translateY(0);}
+.ticker-item::before{content:'▸ '; color:var(--amber);}
+.hero-ctas{display:flex; gap:10px; margin-top:clamp(16px,2.6vh,28px); flex-wrap:wrap;}
+.hero-ctas .btn{white-space:nowrap;}
+.btn{
+  font-family:var(--ff-mono); font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase;
+  padding:11px 16px; border:1px solid var(--titanium); color:var(--paper); text-decoration:none;
+  display:inline-flex; align-items:center; gap:8px; transition:all .3s ease; background:transparent;
+  white-space:nowrap;
+}
+.btn:hover{border-color:var(--amber); color:var(--amber); transform:translateY(-2px);}
+.btn.primary{background:var(--amber); border-color:var(--amber); color:var(--charcoal); font-weight:600;}
+.btn.primary:hover{background:var(--paper); border-color:var(--paper); color:var(--charcoal);}
+.linkedin-btn{border-color:var(--blueprint); color:var(--blueprint);}
+.linkedin-btn:hover{background:var(--blueprint); border-color:var(--blueprint); color:var(--charcoal);}
+.linkedin-btn svg{transition:transform .3s ease;}
+.linkedin-btn:hover svg{transform:scale(1.1);}
+.scroll-cue{position:absolute; bottom:clamp(16px,4vh,32px); left:7vw; z-index:5; font-family:var(--ff-mono); font-size:0.6rem; letter-spacing:0.18em; color:var(--titanium); display:flex; align-items:center; gap:10px; text-transform:uppercase;}
+.scroll-cue .line{width:1px; height:34px; background:linear-gradient(var(--titanium),transparent); animation:pulse-line 2s infinite;}
+@keyframes pulse-line{0%,100%{opacity:0.3;}50%{opacity:1;}}
+.hero-caption{position:absolute; bottom:clamp(16px,4vh,32px); right:6vw; z-index:5; font-family:var(--ff-mono); font-size:0.56rem; letter-spacing:0.12em; color:var(--titanium); text-transform:uppercase; text-align:right; max-width:200px; line-height:1.6;}
+@media (max-width:820px){ .hero-caption{display:none;} }
+
+@media (max-width:820px){
+  .hero-photo{background-size:cover; background-position:68% 18%;}
+  .hero-content{max-width:100%; padding:0 7vw;}
+  .hero-name{font-size:clamp(1.8rem,7.6vw,2.55rem);}
+  .hero-ctas .btn{padding:11px 16px; font-size:0.6rem;}
+}
+@media (max-width:520px){
+  .hero-photo{background-size:cover; background-position:72% 14%;}
+  .hero-scrim{background:
+    linear-gradient(0deg, rgba(8,10,12,0.98) 0%, rgba(8,10,12,0.94) 46%, rgba(8,10,12,0.55) 62%, rgba(8,10,12,0.15) 78%, transparent 92%);}
+}
+@media (min-width:821px) and (max-height:760px){
+  .hero-name{font-size:clamp(1.45rem,2.5vw,2.1rem);}
+  .hero-sub{font-size:0.84rem; -webkit-line-clamp:3;}
+  .eyebrow{margin-bottom:8px;}
+  .ticker{margin-top:6px;}
+  .hero-ctas{margin-top:12px;}
+}
+@media (max-width:820px) and (max-height:700px){
+  .hero-name{font-size:clamp(1.55rem,6.9vw,2.2rem);}
+  .hero-sub{font-size:0.84rem;}
+  .eyebrow{margin-bottom:8px;}
+  .ticker{margin-top:6px;}
+  .hero-ctas{margin-top:12px;}
+}
+
+
+/* ============================================================
+   REVEAL
+============================================================ */
+.reveal{opacity:0; transform:translateY(34px); transition:opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1);}
+.in-view .reveal{opacity:1; transform:translateY(0);}
+.reveal.d1{transition-delay:.08s;} .reveal.d2{transition-delay:.16s;} .reveal.d3{transition-delay:.24s;} .reveal.d4{transition-delay:.32s;} .reveal.d5{transition-delay:.4s;}
+
+/* ============================================================
+   ABOUT / DUALITY
+============================================================ */
+.duality{display:grid; grid-template-columns:1fr 60px 1fr; gap:0; align-items:start; margin-top:20px;}
+.duality-col h3{font-size:clamp(1.1rem,1.7vw,1.4rem); margin-bottom:clamp(8px,1.4vh,14px); font-weight:600;}
+.duality-col p{color:var(--paper-dim); font-size:0.84rem; line-height:1.6; font-weight:300;}
+.duality-col ul{margin-top:clamp(8px,1.6vh,16px); list-style:none;}
+.duality-col li{font-family:var(--ff-mono); font-size:0.66rem; letter-spacing:0.04em; color:var(--titanium); padding:clamp(5px,1vh,8px) 0; border-top:1px solid var(--hairline);}
+.duality-col li b{color:var(--paper); font-weight:500;}
+.duality-mid{display:flex; align-items:stretch; justify-content:center;}
+.duality-mid .spine{width:1px; background:linear-gradient(var(--blueprint),var(--amber)); position:relative;}
+.duality-mid .spine::before,.duality-mid .spine::after{content:'';position:absolute;left:50%;transform:translateX(-50%);width:7px;height:7px;border-radius:50%;background:var(--charcoal);border:1px solid var(--amber);}
+.duality-mid .spine::before{top:0;} .duality-mid .spine::after{bottom:0; border-color:var(--blueprint);}
+@media (max-width:900px){.duality{grid-template-columns:1fr;} .duality-mid{display:none;} .duality-col{margin-bottom:40px;}}
+
+/* ============================================================
+   SYSTEMS / GAUGES
+============================================================ */
+.gauge-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(14px,2.6vh,28px) 20px;}
+@media (max-width:900px){.gauge-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.gauge-grid{grid-template-columns:1fr;}}
+.gauge-card{border:1px solid var(--hairline); padding:clamp(14px,2vh,20px) 16px; background:rgba(255,255,255,0.015);}
+.gauge{
+  width:clamp(56px,7vh,76px); height:clamp(56px,7vh,76px); border-radius:50%; margin:0 auto clamp(8px,1.4vh,14px) auto; position:relative;
+  background:conic-gradient(var(--amber) 0deg, var(--amber) 0deg, rgba(255,255,255,0.06) 0deg);
+  transition:background 1.4s cubic-bezier(.2,.8,.2,1);
+}
+.gauge::before{content:'';position:absolute; inset:8px; border-radius:50%; background:var(--graphite-2); border:1px solid var(--hairline);}
+.gauge-label{font-family:var(--ff-display); font-size:0.98rem; font-weight:600; margin-bottom:6px; text-align:center;}
+.gauge-sub{font-family:var(--ff-mono); font-size:0.62rem; letter-spacing:0.05em; color:var(--titanium); text-align:center; line-height:1.6; text-transform:uppercase;}
+
+/* ============================================================
+   LOGBOOK / PROJECTS
+============================================================ */
+.log-list{margin-top:22px; border-top:1px solid var(--hairline);}
+.log-entry{border-bottom:1px solid var(--hairline);}
+.log-header{
+  display:grid; grid-template-columns:90px 1fr 190px 18px; gap:18px; align-items:start;
+  padding:clamp(10px,1.8vh,16px) 0; cursor:pointer; transition:background .3s ease;
+  background:transparent; border:none; width:100%; text-align:left; font:inherit; color:inherit;
+}
+.log-header:hover{background:rgba(232,163,61,0.035);}
+.log-id{font-family:var(--ff-mono); color:var(--blueprint); font-size:0.74rem; letter-spacing:0.06em; padding-top:4px;}
+.log-body h3{font-size:clamp(0.95rem,1.4vw,1.15rem); font-weight:600; margin-bottom:4px;}
+.log-body p{color:var(--paper-dim); font-size:0.78rem; line-height:1.5; max-width:560px; font-weight:300;}
+.log-tags{display:flex; flex-wrap:wrap; gap:7px; align-content:flex-start; padding-top:5px;}
+.tag{font-family:var(--ff-mono); font-size:0.58rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--amber); border:1px solid var(--amber-dim); padding:4px 8px;}
+.log-chevron{color:var(--titanium); margin-top:8px; transition:transform .35s ease, color .3s ease; justify-self:end;}
+.log-header[aria-expanded="true"] .log-chevron{transform:rotate(180deg); color:var(--amber);}
+.log-detail{max-height:0; overflow:hidden; transition:max-height .5s cubic-bezier(.2,.8,.2,1);}
+.log-detail-inner{padding:4px 0 28px 0;}
+.media-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+.media-slot{
+  border:1px dashed var(--hairline); padding:22px 14px; display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:8px; text-align:center; color:var(--titanium); background:rgba(255,255,255,0.012);
+  transition:border-color .3s ease, color .3s ease; min-width:0;
+}
+.media-slot:hover{border-color:var(--blueprint-dim); color:var(--blueprint);}
+.media-slot span{font-family:var(--ff-mono); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--paper-dim);}
+.media-slot small{font-size:0.68rem; font-weight:300; line-height:1.4; max-width:140px;}
+@media (max-width:820px){
+  .log-header{grid-template-columns:1fr 20px; grid-template-areas:"id chev" "body body" "tags tags";}
+  .log-id{grid-area:id;} .log-body{grid-area:body;} .log-tags{grid-area:tags; padding-top:8px;} .log-chevron{grid-area:chev;}
+  .media-grid{gap:8px;}
+  .media-slot{padding:14px 6px;}
+  .media-slot small{display:none;}
+}
+@media (max-width:480px){
+  .media-grid{gap:6px;}
+  .media-slot{padding:12px 4px; gap:5px;}
+  .media-slot svg{width:18px; height:18px;}
+  .media-slot span{font-size:0.56rem; letter-spacing:0.04em;}
+}
+
+/* ============================================================
+   FLIGHT PATH (signature)
+============================================================ */
+.fp-wrap{position:relative; margin-top:26px;}
+.fp-svg{width:100%; height:auto; display:block;}
+.fp-route{fill:none; stroke:var(--blueprint); stroke-width:1.4; stroke-dasharray:2000; stroke-dashoffset:2000; transition:stroke-dashoffset 2.4s cubic-bezier(.2,.7,.2,1);}
+.in-view .fp-route{stroke-dashoffset:0;}
+.fp-dot{fill:var(--charcoal); stroke:var(--amber); stroke-width:2; opacity:0; transform:scale(0.4); transform-origin:center; transition:opacity .5s ease, transform .5s ease;}
+.in-view .fp-dot{opacity:1; transform:scale(1);}
+.fp-dot.d0{transition-delay:.3s;} .fp-dot.d1{transition-delay:.8s;} .fp-dot.d2{transition-delay:1.3s;} .fp-dot.d3{transition-delay:1.8s;} .fp-dot.d4{transition-delay:2.3s;}
+.fp-label{font-family:var(--ff-mono); font-size:9px; letter-spacing:0.04em; fill:var(--titanium); text-transform:uppercase; opacity:0; transition:opacity .6s ease;}
+.in-view .fp-label{opacity:1;}
+.fp-label.l0{transition-delay:.5s;} .fp-label.l1{transition-delay:1.0s;} .fp-label.l2{transition-delay:1.5s;} .fp-label.l3{transition-delay:2.0s;} .fp-label.l4{transition-delay:2.5s;}
+.fp-title{font-family:var(--ff-display); font-size:12px; font-weight:600; fill:var(--paper); opacity:0; transition:opacity .6s ease;}
+.fp-title.l0{transition-delay:.5s;} .fp-title.l1{transition-delay:1.0s;} .fp-title.l2{transition-delay:1.5s;} .fp-title.l3{transition-delay:2.0s;} .fp-title.l4{transition-delay:2.5s;}
+.in-view .fp-title{opacity:1;}
+
+/* ============================================================
+   CREDENTIALS
+============================================================ */
+.badge-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--hairline); margin-top:26px; border:1px solid var(--hairline);}
+@media (max-width:900px){.badge-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.badge-grid{grid-template-columns:1fr;}}
+.badge{background:var(--charcoal); padding:clamp(14px,2.2vh,22px) 18px;}
+.badge .mono-small{color:var(--blueprint);}
+.badge h3{font-size:1.05rem; margin:9px 0 6px 0; font-weight:600;}
+.badge p{color:var(--paper-dim); font-size:0.8rem; font-weight:300; line-height:1.5;}
+
+/* ============================================================
+   CONTACT
+============================================================ */
+.contact-grid{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:28px; margin-top:clamp(16px,3vh,30px);}
+.freq{font-family:var(--ff-mono); font-size:0.72rem; color:var(--titanium); letter-spacing:0.1em; text-transform:uppercase; display:flex; flex-direction:column; gap:15px;}
+.freq a{color:var(--paper); text-decoration:none; border-bottom:1px solid var(--hairline); padding-bottom:2px; transition:all .3s ease;}
+.freq a:hover{color:var(--amber); border-color:var(--amber);}
+.contact-big{font-family:var(--ff-display); font-size:clamp(1.9rem,4.6vw,3.2rem); font-weight:600; max-width:700px;}
+.contact-big em{color:var(--amber); font-style:italic; font-weight:500;}
+footer.mono-small{margin-top:clamp(24px,4.5vh,48px); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; border-top:1px solid var(--hairline); padding-top:16px;}
+
+/* ============================================================
+   ADMIN ACCESS
+============================================================ */
+.gear-btn{
+  position:fixed; left:20px; top:20px; z-index:80; width:32px; height:32px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; background:rgba(18,22,26,0.7);
+  border:1px solid var(--hairline); color:var(--titanium); cursor:pointer; backdrop-filter:blur(6px);
+  transition:all .3s ease;
+}
+.gear-btn:hover{color:var(--amber); border-color:var(--amber-dim); transform:rotate(35deg);}
+body.admin-mode .gear-btn{color:var(--amber); border-color:var(--amber);}
+.admin-badge{
+  position:fixed; left:20px; top:60px; z-index:80; display:flex; align-items:center; gap:10px;
+  background:rgba(18,22,26,0.85); border:1px solid var(--amber-dim); padding:7px 10px; border-radius:6px;
+  font-family:var(--ff-mono); font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--amber);
+  backdrop-filter:blur(6px);
+}
+.admin-badge button{background:transparent; border:1px solid var(--hairline); color:var(--titanium); font:inherit; padding:3px 7px; cursor:pointer; border-radius:4px; transition:all .25s ease;}
+.admin-badge button:hover{color:var(--signal); border-color:var(--signal);}
+body.admin-mode .admin-badge{display:flex !important;}
+
+.admin-only{display:none;}
+body.admin-mode .entry-edit-btn.admin-only{display:flex;}
+body.admin-mode .add-project-btn.admin-only{display:inline-flex;}
+body.admin-mode .admin-badge.admin-only{display:flex;}
+
+.entry-edit-btn{
+  position:absolute; right:26px; top:12px; z-index:6; width:26px; height:26px; border-radius:50%;
+  align-items:center; justify-content:center; background:rgba(18,22,26,0.8); border:1px solid var(--hairline);
+  color:var(--titanium); cursor:pointer; transition:all .25s ease;
+}
+.entry-edit-btn:hover{color:var(--amber); border-color:var(--amber-dim);}
+.log-entry{position:relative;}
+
+.add-project-btn{
+  display:none; align-items:center; gap:8px; margin:22px auto 0 auto; padding:10px 18px;
+  background:transparent; border:1px dashed var(--amber-dim); color:var(--amber);
+  font-family:var(--ff-mono); font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer;
+  transition:all .3s ease;
+}
+.add-project-btn:hover{background:rgba(232,163,61,0.08); border-color:var(--amber);}
+
+.media-slot[data-kind]{cursor:default;}
+body.admin-mode .media-slot{cursor:pointer;}
+body.admin-mode .media-slot:hover{border-color:var(--amber-dim); color:var(--amber); background:rgba(232,163,61,0.04);}
+
+.media-thumb{
+  position:relative; border:1px solid var(--hairline); overflow:hidden; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:6px; padding:10px; text-align:center; min-height:96px;
+  background:rgba(255,255,255,0.02);
+}
+.media-thumb img{width:100%; height:80px; object-fit:cover; display:block;}
+.media-thumb span.mt-name{font-family:var(--ff-mono); font-size:0.62rem; color:var(--paper-dim); word-break:break-word;}
+.media-thumb .mt-remove{
+  position:absolute; top:4px; right:4px; width:18px; height:18px; border-radius:50%; display:none;
+  align-items:center; justify-content:center; background:rgba(10,12,14,0.85); border:1px solid var(--hairline);
+  color:var(--titanium); cursor:pointer; font-size:11px; line-height:1;
+}
+body.admin-mode .media-thumb .mt-remove{display:flex;}
+.media-thumb .mt-remove:hover{color:var(--signal); border-color:var(--signal);}
+
+/* ============================================================
+   MODALS
+============================================================ */
+.modal-overlay{
+  position:fixed; inset:0; z-index:120; background:rgba(6,8,9,0.72); backdrop-filter:blur(4px);
+  display:none; align-items:center; justify-content:center; padding:20px;
+}
+.modal-overlay.open{display:flex;}
+.modal-box{
+  width:100%; max-width:400px; background:var(--graphite); border:1px solid var(--hairline);
+  padding:26px 24px; box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.modal-box h4{font-family:var(--ff-display); font-size:1.15rem; font-weight:600; margin-bottom:8px;}
+.modal-sub{color:var(--paper-dim); font-size:0.78rem; line-height:1.5; margin-bottom:16px;}
+.modal-box label{display:block; font-family:var(--ff-mono); font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--titanium); margin-bottom:14px;}
+.modal-box input, .modal-box textarea{
+  display:block; width:100%; margin-top:6px; background:var(--graphite-2); border:1px solid var(--hairline);
+  color:var(--paper); padding:10px 11px; font:inherit; font-size:0.85rem; font-family:var(--ff-body);
+}
+.modal-box input:focus, .modal-box textarea:focus{outline:none; border-color:var(--amber-dim);}
+.modal-box textarea{resize:vertical;}
+.modal-error{color:var(--signal); font-family:var(--ff-mono); font-size:0.68rem; margin-bottom:12px;}
+.modal-actions{display:flex; justify-content:flex-end; gap:10px; margin-top:6px;}
+.modal-actions .btn{padding:9px 16px; font-size:0.68rem;}
+.modal-cancel{background:transparent; color:var(--titanium); border-color:var(--hairline);}
+
+.toast{
+  position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px); z-index:200;
+  background:var(--graphite); border:1px solid var(--amber-dim); color:var(--paper); padding:11px 20px;
+  font-family:var(--ff-mono); font-size:0.7rem; letter-spacing:0.05em; opacity:0; pointer-events:none;
+  transition:all .35s ease;
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+@media (max-width:820px){
+  .gear-btn{left:14px; top:14px;}
+  .admin-badge{left:14px; top:54px;}
+}
+
+</style>
+</head>
+<body>
+
+<div class="noise"></div>
+<div class="vignette"></div>
+<div class="rail"><div class="rail-fill" id="railFill"></div></div>
+
+<nav class="side-nav" id="sideNav">
+  <a href="#home" data-label="Home" data-target="home" class="active"></a>
+  <a href="#profile" data-label="Profile" data-target="profile"></a>
+  <a href="#systems" data-label="Systems" data-target="systems"></a>
+  <a href="#logbook" data-label="Logbook" data-target="logbook"></a>
+  <a href="#flightpath" data-label="Flight Path" data-target="flightpath"></a>
+  <a href="#credentials" data-label="Credentials" data-target="credentials"></a>
+  <a href="#clearance" data-label="Clearance" data-target="clearance"></a>
+</nav>
+
+<div class="corner-tag">
+  <span>AHMED S. ELERAKY</span>
+  <span>AIRFRAME · UAV · AI SYSTEMS</span>
+</div>
+
+<!-- ============ ADMIN ACCESS ============ -->
+<button type="button" id="gearBtn" class="gear-btn" aria-label="Site admin access" title="Admin access">
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+</button>
+<div id="adminBadge" class="admin-badge admin-only" style="display:none;">
+  <span>Admin mode</span>
+  <button type="button" id="logoutBtn">Log out</button>
+</div>
+
+<input type="file" id="mediaFileInput" style="display:none;" accept="">
+
+<!-- Login modal -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal-box">
+    <h4>Admin access</h4>
+    <p class="modal-sub">Sign in to add photos, videos, or documents to a project, or to add and edit projects.</p>
+    <form id="loginForm">
+      <label>Username<input type="text" id="loginUser" autocomplete="username" required></label>
+      <label>Password<input type="password" id="loginPass" autocomplete="current-password" required></label>
+      <div class="modal-error" id="loginError" style="display:none;">Incorrect username or password.</div>
+      <div class="modal-actions">
+        <button type="button" class="btn modal-cancel" data-close="loginModal">Cancel</button>
+        <button type="submit" class="btn primary">Sign in</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Edit project modal -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal-box">
+    <h4>Edit project entry</h4>
+    <form id="editForm">
+      <label>Title<input type="text" id="editTitle" required></label>
+      <label>Description<textarea id="editDesc" rows="4" required></textarea></label>
+      <div class="modal-actions">
+        <button type="button" class="btn modal-cancel" data-close="editModal">Cancel</button>
+        <button type="submit" class="btn primary">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Add new project modal -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal-box">
+    <h4>Add a new project</h4>
+    <form id="addForm">
+      <label>Title<input type="text" id="addTitle" required></label>
+      <label>Description<textarea id="addDesc" rows="4" required></textarea></label>
+      <label>Tags (comma separated)<input type="text" id="addTags" placeholder="e.g. Robotics, AI, Personal Project"></label>
+      <div class="modal-actions">
+        <button type="button" class="btn modal-cancel" data-close="addModal">Cancel</button>
+        <button type="submit" class="btn primary">Add project</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<div id="scroller">
+
+  <!-- ============ HERO ============ -->
+  <section class="section" id="home">
+    <div class="hero-photo"></div>
+    <div class="hero-scrim"></div>
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-grid-overlay"></div>
+    <div class="hero-content">
+      <div class="eyebrow">Aircraft Maintenance Engineer — CAMO &amp; AI Enthusiast</div>
+      <h1 class="hero-name">Certified to keep aircraft flying.<br>Driven to <em>reimagine how they will.</em></h1>
+      <p class="hero-sub">Over 10 years across the Airbus A320 Family, the Dash 8-Q300, and the CRJ —
+      now applying that same discipline to AI-driven fleet intelligence and UAV systems design.</p>
+      <div class="ticker" id="ticker">
+        <div class="ticker-item active">GCAA/ECAA CATEGORY B1 LICENSED — CAT A &amp; C</div>
+        <div class="ticker-item">A320 FAMILY · DASH 8-Q300 · CRJ 700/900/1000</div>
+        <div class="ticker-item">CAMO PM — NILEAIR FLEET, MULTI-MILLION-DOLLAR BUDGET</div>
+        <div class="ticker-item">AEROMIND SYSTEM — AI PREDICTIVE MAINTENANCE PROTOTYPE</div>
+        <div class="ticker-item">UAV eVTOL CONCEPT — V-22 OSPREY-INSPIRED TILTROTOR</div>
+      </div>
+      <div class="hero-ctas">
+        <a href="#logbook" class="btn primary">View the logbook</a>
+        <a href="#clearance" class="btn">Request clearance</a>
+        <a href="https://www.linkedin.com/in/ahmed-eleraky-89903826/" target="_blank" rel="noopener" class="btn linkedin-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+    <div class="scroll-cue"><div class="line"></div> Scroll</div>
+    <div class="hero-caption">On the ramp, A380 GP7200 — Abu Dhabi</div>
+  </section>
+
+  <!-- ============ PROFILE / DUALITY ============ -->
+  <section class="section bg-artistic" id="profile">
+    <div class="section-inner">
+      <div class="eyebrow reveal">Profile</div>
+      <h2 class="reveal d1">One engineer, two flight regimes.</h2>
+      <p class="lead reveal d2">Trained to keep an aircraft airworthy to the letter of the regulation —
+      and to design the systems that predict the next fault before it grounds one.</p>
+
+      <div class="duality" style="margin-top:clamp(20px,4vh,42px);">
+        <div class="duality-col reveal d3">
+          <div class="mono-small" style="color:var(--blueprint); margin-bottom:10px;">On the line</div>
+          <h3>The licensed engineer.</h3>
+          <p>GCAA/ECAA Category B1 equivalent (Category A &amp; C) across the
+          Airbus A320 Family (IAE V2500 &amp; CFM56-5B), Dash 8-Q300, and CRJ 700/900/1000. Nearly
+          five years as CAMO Project Manager at NileAir — running fleet shop visits, AD/SB
+          implementation, and a multi-million-dollar annual technical budget as 24/7 AOG case manager. Line and
+          heavy maintenance at Petroleum Air Services, and Flight Engineer support on VIP operations.
+          Now an Aviation Engineering Instructor at ADVETI, building the curriculum that trains the
+          next generation.</p>
+          <ul>
+            <li><b>License</b> — GCAA/ECAA Category B1 (A &amp; C)</li>
+            <li><b>Type ratings</b> — A320 Family, Dash 8-Q300, CRJ</li>
+            <li><b>CAMO</b> — multi-million-dollar budget, 24/7 AOG, AMOS key user</li>
+            <li><b>Teaching</b> — Aviation Engineering Instructor, ADVETI</li>
+          </ul>
+        </div>
+        <div class="duality-mid reveal d3"><div class="spine"></div></div>
+        <div class="duality-col reveal d4">
+          <div class="mono-small" style="color:var(--amber); margin-bottom:10px;">In the lab</div>
+          <h3>The systems builder.</h3>
+          <p>A Mechatronics Engineering degree from Ain Shams University carried into embedded
+          systems (PIC, AVR, Arduino), CAD (SolidWorks, Inventor, Fusion), and control design
+          (MATLAB/Simulink, LabVIEW). That foundation now drives AeroMind System — a self-built AI
+          predictive-maintenance prototype validated against real fleet data — alongside a UAV eVTOL
+          concept inspired by the V-22 Osprey, SLAM-based robotics, and a growing set of AI
+          certifications from Google, IBM, and the Technical University of Munich.</p>
+          <ul>
+            <li><b>Foundation</b> — Mechatronics, Ain Shams University</li>
+            <li><b>Focus</b> — embedded systems, SLAM, CAD, controls</li>
+            <li><b>Venture</b> — AeroMind System, predictive maintenance</li>
+            <li><b>AI training</b> — Google, IBM, TU Munich</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SYSTEMS / GAUGES ============ -->
+  <section class="section bg-technical" id="systems">
+    <div class="section-inner">
+      <div class="eyebrow reveal">Systems</div>
+      <h2 class="reveal d1">The instrument panel.</h2>
+      <p class="lead reveal d2">Six disciplines, one operator. Each dial represents where time and
+      depth have gone — not a score, a flight regime.</p>
+      <div class="gauge-grid" id="gaugeGrid" style="margin-top:clamp(14px,2.6vh,26px);">
+        <div class="gauge-card reveal d1"><div class="gauge" data-fill="92"></div><div class="gauge-label">Airframe &amp; Powerplant</div><div class="gauge-sub">A320 · Dash 8-Q300 · CRJ, A &amp; C checks</div></div>
+        <div class="gauge-card reveal d2"><div class="gauge" data-fill="90"></div><div class="gauge-label">CAMO &amp; Contracting</div><div class="gauge-sub">Multi-million-dollar budget · MRO &amp; vendor mgmt</div></div>
+        <div class="gauge-card reveal d3"><div class="gauge" data-fill="80"></div><div class="gauge-label">UAV &amp; Robotics</div><div class="gauge-sub">eVTOL concept · SLAM · embedded systems</div></div>
+        <div class="gauge-card reveal d1"><div class="gauge" data-fill="82"></div><div class="gauge-label">AI &amp; Predictive Maintenance</div><div class="gauge-sub">AeroMind System · Google · IBM · TUM</div></div>
+        <div class="gauge-card reveal d2"><div class="gauge" data-fill="86"></div><div class="gauge-label">CAD &amp; Design</div><div class="gauge-sub">SolidWorks · Inventor · Fusion</div></div>
+        <div class="gauge-card reveal d3"><div class="gauge" data-fill="88"></div><div class="gauge-label">Technical Instruction</div><div class="gauge-sub">Curriculum design, ADVETI</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LOGBOOK / PROJECTS ============ -->
+  <section class="section bg-technical" id="logbook">
+    <div class="section-inner">
+      <div class="eyebrow reveal">Technical Logbook</div>
+      <h2 class="reveal d1">Entries from the shop floor and the lab.</h2>
+      <div class="log-list" style="margin-top:clamp(12px,2.2vh,22px);">
+        <div class="log-entry reveal d1" data-log-id="log-001">
+          <button type="button" class="entry-edit-btn admin-only" data-edit-target="log-001" aria-label="Edit this entry" title="Edit title &amp; description"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+          <button class="log-header" type="button" aria-expanded="false">
+            <div class="log-id">LOG&nbsp;001</div>
+            <div class="log-body"><h3>AeroMind — Predictive Maintenance Intelligence Platform</h3>
+            <p>An independently engineered AI platform for engine health monitoring, failure
+            prediction, and maintenance-schedule optimization — built in Python and validated
+            against real-world fleet data ahead of airline evaluation.</p></div>
+            <div class="log-tags"><span class="tag">AI / ML</span><span class="tag">Predictive Health</span><span class="tag">Personal Project</span></div>
+            <svg class="log-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="log-detail">
+            <div class="log-detail-inner">
+              <div class="media-grid">
+                <div class="media-slot" data-kind="photo" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg><span>Photos</span><small>Add project imagery</small></div>
+                <div class="media-slot" data-kind="doc" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Documentation</span><small>Add reports, specs, or write-ups</small></div>
+                <div class="media-slot" data-kind="video" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>Video</span><small>Add a demo or walkthrough</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="log-entry reveal d2" data-log-id="log-002">
+          <button type="button" class="entry-edit-btn admin-only" data-edit-target="log-002" aria-label="Edit this entry" title="Edit title &amp; description"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+          <button class="log-header" type="button" aria-expanded="false">
+            <div class="log-id">LOG&nbsp;002</div>
+            <div class="log-body"><h3>Tiltrotor UAV — eVTOL System Concept</h3>
+            <p>A tiltrotor UAV architecture inspired by the Bell Boeing V-22 Osprey, engineered to
+            combine vertical takeoff and landing with the cruise efficiency of fixed-wing forward
+            flight.</p></div>
+            <div class="log-tags"><span class="tag">UAV</span><span class="tag">eVTOL</span><span class="tag">Concept Design</span></div>
+            <svg class="log-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="log-detail">
+            <div class="log-detail-inner">
+              <div class="media-grid">
+                <div class="media-slot" data-kind="photo" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg><span>Photos</span><small>Add project imagery</small></div>
+                <div class="media-slot" data-kind="doc" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Documentation</span><small>Add reports, specs, or write-ups</small></div>
+                <div class="media-slot" data-kind="video" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>Video</span><small>Add a demo or walkthrough</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="log-entry reveal d3" data-log-id="log-003">
+          <button type="button" class="entry-edit-btn admin-only" data-edit-target="log-003" aria-label="Edit this entry" title="Edit title &amp; description"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+          <button class="log-header" type="button" aria-expanded="false">
+            <div class="log-id">LOG&nbsp;003</div>
+            <div class="log-body"><h3>Autonomous SLAM Search &amp; Reconnaissance Robot</h3>
+            <p>Graduation project: a dual-brain (Arduino Mega + Raspberry Pi), stair-climbing,
+            tracked robot with a 5-DoF manipulator arm, real-time 3D SLAM mapping (ROS 2 + SLAM
+            Toolbox), and cloud-connected video for bomb-disposal reconnaissance. Thesis score:
+            Excellent.</p></div>
+            <div class="log-tags"><span class="tag">SLAM</span><span class="tag">ROS 2</span><span class="tag">Robotics</span></div>
+            <svg class="log-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="log-detail">
+            <div class="log-detail-inner">
+              <div class="media-grid">
+                <div class="media-slot" data-kind="photo" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg><span>Photos</span><small>Add project imagery</small></div>
+                <div class="media-slot" data-kind="doc" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Documentation</span><small>Add reports, specs, or write-ups</small></div>
+                <div class="media-slot" data-kind="video" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>Video</span><small>Add a demo or walkthrough</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="log-entry reveal d1" data-log-id="log-004">
+          <button type="button" class="entry-edit-btn admin-only" data-edit-target="log-004" aria-label="Edit this entry" title="Edit title &amp; description"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+          <button class="log-header" type="button" aria-expanded="false">
+            <div class="log-id">LOG&nbsp;004</div>
+            <div class="log-body"><h3>12-DOF Hexapod Robotic Platform</h3>
+            <p>A 12-degree-of-freedom walking robot built on the Intel Edison / Galileo platform, in
+            partnership with Intel Egypt — exhibited live at Cairo Maker Faire, March 2015.</p></div>
+            <div class="log-tags"><span class="tag">Embedded Systems</span><span class="tag">Intel Edison</span><span class="tag">Maker Faire</span></div>
+            <svg class="log-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="log-detail">
+            <div class="log-detail-inner">
+              <div class="media-grid">
+                <div class="media-slot" data-kind="photo" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg><span>Photos</span><small>Add project imagery</small></div>
+                <div class="media-slot" data-kind="doc" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Documentation</span><small>Add reports, specs, or write-ups</small></div>
+                <div class="media-slot" data-kind="video" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>Video</span><small>Add a demo or walkthrough</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="log-entry reveal d2" data-log-id="log-005">
+          <button type="button" class="entry-edit-btn admin-only" data-edit-target="log-005" aria-label="Edit this entry" title="Edit title &amp; description"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+          <button class="log-header" type="button" aria-expanded="false">
+            <div class="log-id">LOG&nbsp;005</div>
+            <div class="log-body"><h3>Fleet Cabin &amp; In-Flight Entertainment Transformation — NileAir</h3>
+            <p>Project Manager for a 7-aircraft cabin refresh to premium leather finishes (supplier
+            qualification, CAA audit management), and Project Owner for AirFi wireless IFE — the
+            first deployment of its kind in the region.</p></div>
+            <div class="log-tags"><span class="tag">Program Mgmt</span><span class="tag">Cabin Refresh</span><span class="tag">IFE</span></div>
+            <svg class="log-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="log-detail">
+            <div class="log-detail-inner">
+              <div class="media-grid">
+                <div class="media-slot" data-kind="photo" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg><span>Photos</span><small>Add project imagery</small></div>
+                <div class="media-slot" data-kind="doc" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Documentation</span><small>Add reports, specs, or write-ups</small></div>
+                <div class="media-slot" data-kind="video" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>Video</span><small>Add a demo or walkthrough</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="log-entry reveal d3" data-log-id="log-006">
+          <button type="button" class="entry-edit-btn admin-only" data-edit-target="log-006" aria-label="Edit this entry" title="Edit title &amp; description"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+          <button class="log-header" type="button" aria-expanded="false">
+            <div class="log-id">LOG&nbsp;006</div>
+            <div class="log-body"><h3>Wind Tunnel Development for Airfoil Boundary-Layer Separation Detection</h3>
+            <p>An independent wind-tunnel research program using vibration sensors to detect
+            boundary-layer separation on airfoils, paired with an AI model trained to determine the
+            optimum angle of attack.</p></div>
+            <div class="log-tags"><span class="tag">Aerodynamics</span><span class="tag">Sensing</span><span class="tag">AI</span></div>
+            <svg class="log-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="log-detail">
+            <div class="log-detail-inner">
+              <div class="media-grid">
+                <div class="media-slot" data-kind="photo" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg><span>Photos</span><small>Add project imagery</small></div>
+                <div class="media-slot" data-kind="doc" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Documentation</span><small>Add reports, specs, or write-ups</small></div>
+                <div class="media-slot" data-kind="video" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>Video</span><small>Add a demo or walkthrough</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="log-entry reveal d1" data-log-id="log-007">
+          <button type="button" class="entry-edit-btn admin-only" data-edit-target="log-007" aria-label="Edit this entry" title="Edit title &amp; description"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+          <button class="log-header" type="button" aria-expanded="false">
+            <div class="log-id">LOG&nbsp;007</div>
+            <div class="log-body"><h3>AeroGuide — Interactive Aviation Systems Training Platform</h3>
+            <p>An interactive aviation education platform for ADVETI students — a clickable aircraft
+            systems diagram, auto-generated quizzes, and per-student progress tracking, now in its
+            sixth iteration.</p></div>
+            <div class="log-tags"><span class="tag">EdTech</span><span class="tag">React</span><span class="tag">ADVETI</span></div>
+            <svg class="log-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="log-detail">
+            <div class="log-detail-inner">
+              <div class="media-grid">
+                <div class="media-slot" data-kind="photo" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg><span>Photos</span><small>Add project imagery</small></div>
+                <div class="media-slot" data-kind="doc" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Documentation</span><small>Add reports, specs, or write-ups</small></div>
+                <div class="media-slot" data-kind="video" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>Video</span><small>Add a demo or walkthrough</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" id="addProjectBtn" class="add-project-btn admin-only">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add new project
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FLIGHT PATH (signature) ============ -->
+  <section class="section bg-artistic" id="flightpath">
+    <div class="section-inner">
+      <div class="eyebrow reveal">Flight Path</div>
+      <h2 class="reveal d1">The route so far.</h2>
+      <p class="lead reveal d2">Charted like a route, not a resume — each waypoint a system learned,
+      a fleet supported, or a team taught.</p>
+      <div class="fp-wrap reveal d3" style="margin-top:clamp(14px,2.6vh,26px);">
+        <svg class="fp-svg" viewBox="0 0 1200 340" preserveAspectRatio="xMidYMid meet">
+          <path class="fp-route" d="M 40 260 C 160 190, 190 130, 300 120 S 520 300, 620 240 S 780 70, 860 90 S 1030 230, 1150 170" />
+          <circle class="fp-dot d0" cx="40" cy="260" r="6"/>
+          <text class="fp-title l0" x="40" y="292">Ain Shams University</text>
+          <text class="fp-label l0" x="40" y="308">2009–2015 · Mechatronics Eng., B.Sc.</text>
+
+          <circle class="fp-dot d1" cx="300" cy="120" r="6"/>
+          <text class="fp-title l1" x="300" y="98">🤖 Freelance Robotics &amp; Fabrication Engineer</text>
+          <text class="fp-label l1" x="300" y="80">2015–2016 · Rovers, UAV swarms &amp; custom 3D-printer design/maintenance</text>
+
+          <circle class="fp-dot d2" cx="620" cy="240" r="6"/>
+          <text class="fp-title l2" x="620" y="272">NileAir</text>
+          <text class="fp-label l2" x="620" y="288">2016–2019 · Technical Services / CAMO PM</text>
+
+          <circle class="fp-dot d3" cx="860" cy="90" r="6"/>
+          <text class="fp-title l3" x="860" y="68">Petroleum Air Services</text>
+          <text class="fp-label l3" x="860" y="50">2019–2023 · Aircraft Maintenance Engineer</text>
+
+          <circle class="fp-dot d4" cx="1150" cy="170" r="6"/>
+          <text class="fp-title l4" x="1150" y="202" text-anchor="end">ADVETI</text>
+          <text class="fp-label l4" x="1150" y="218" text-anchor="end">2023–Present · Aviation Engineering Instructor</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CREDENTIALS ============ -->
+  <section class="section bg-technical" id="credentials">
+    <div class="section-inner">
+      <div class="eyebrow reveal">Credentials</div>
+      <h2 class="reveal d1">Cleared to sign it off.</h2>
+      <div class="badge-grid" style="margin-top:clamp(14px,2.6vh,26px);">
+        <div class="badge reveal d1"><div class="mono-small">License</div><h3>GCAA/ECAA Category B1</h3><p>Category A &amp; C aircraft maintenance license.</p></div>
+        <div class="badge reveal d2"><div class="mono-small">Type Rating</div><h3>Airbus A320 Family</h3><p>Category A &amp; C — Feb 2019.</p></div>
+        <div class="badge reveal d3"><div class="mono-small">Type Rating</div><h3>Dash 8-Q300</h3><p>Category A &amp; C — Sep 2020.</p></div>
+        <div class="badge reveal d1"><div class="mono-small">Type Rating</div><h3>CRJ 700/705/900/1000</h3><p>B1 &amp; B2 combined EASA course — Nov 2022.</p></div>
+        <div class="badge reveal d2"><div class="mono-small">Design</div><h3>Autodesk Fusion</h3><p>Certified User — 2026.</p></div>
+        <div class="badge reveal d3"><div class="mono-small">AI Training</div><h3>Google · IBM · TU Munich</h3><p>AI &amp; digitalisation-in-aerospace certificates.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLEARANCE / CONTACT ============ -->
+  <section class="section bg-artistic" id="clearance">
+    <div class="section-inner">
+      <div class="eyebrow reveal">Clearance</div>
+      <div class="contact-grid">
+        <div class="contact-big reveal d1">Cleared for <em>contact.</em><br>Let's build the next system together.</div>
+        <div class="freq reveal d2">
+          <div>Email<br><a href="mailto:ahmed.s.eleraky@gmail.com">ahmed.s.eleraky@gmail.com</a></div>
+          <div>Phone<br><a href="tel:+971502535722">+971 50 253 5722</a></div>
+          <div>LinkedIn<br><a href="https://www.linkedin.com/in/ahmed-eleraky-89903826/" target="_blank" rel="noopener">/in/ahmed-eleraky</a></div>
+          <div>Based in<br><span style="color:var(--paper)">Abu Dhabi, UAE</span></div>
+        </div>
+      </div>
+      <footer class="mono-small">
+        <span>AHMED SAYED FARRAG ELERAKY — AIRCRAFT MAINTENANCE · CAMO · UAV · AI</span>
+        <span id="clock">ABU DHABI · UTC+04:00</span>
+      </footer>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ---------- Section reveal + nav sync ---------- */
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.side-nav a');
+const railFill = document.getElementById('railFill');
+
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('in-view');
+      const id = entry.target.id;
+      navLinks.forEach(l=>l.classList.toggle('active', l.dataset.target===id));
+      const idx = Array.from(sections).indexOf(entry.target);
+      railFill.style.height = ((idx+1)/sections.length*100)+'%';
+
+      if(id==='systems'){
+        document.querySelectorAll('.gauge').forEach(g=>{
+          const fill = g.dataset.fill;
+          g.style.background = `conic-gradient(var(--amber) ${fill*3.6}deg, rgba(255,255,255,0.06) ${fill*3.6}deg)`;
+        });
+      }
+    }
+  });
+},{threshold:0.4});
+sections.forEach(s=>io.observe(s));
+
+navLinks.forEach(a=>{
+  a.addEventListener('click', e=>{
+    e.preventDefault();
+    document.getElementById(a.dataset.target).scrollIntoView({behavior:'smooth'});
+  });
+});
+
+/* ---------- Logbook expand/collapse ---------- */
+document.querySelectorAll('.log-header').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const detail = btn.nextElementSibling;
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    if(isOpen){
+      btn.setAttribute('aria-expanded','false');
+      detail.style.maxHeight = null;
+    } else {
+      btn.setAttribute('aria-expanded','true');
+      detail.style.maxHeight = detail.scrollHeight + 'px';
+    }
+  });
+});
+
+/* ---------- Hero ticker ---------- */
+const tickerItems = document.querySelectorAll('.ticker-item');
+let tIndex = 0;
+setInterval(()=>{
+  tickerItems[tIndex].classList.remove('active');
+  tIndex = (tIndex+1) % tickerItems.length;
+  tickerItems[tIndex].classList.add('active');
+}, 2800);
+
+/* ---------- Clock ---------- */
+function updateClock(){
+  const el = document.getElementById('clock');
+  if(!el) return;
+  const now = new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Dubai'}));
+  const hh = String(now.getHours()).padStart(2,'0');
+  const mm = String(now.getMinutes()).padStart(2,'0');
+  el.textContent = `ABU DHABI · ${hh}:${mm} UTC+04:00`;
+}
+updateClock(); setInterval(updateClock, 30000);
+
+/* ---------- Hero canvas: blueprint constellation ---------- */
+const canvas = document.getElementById('hero-canvas');
+const ctx = canvas.getContext('2d');
+let W,H,points=[];
+const POINT_COUNT = 55;
+
+function resize(){
+  W = canvas.width = canvas.offsetWidth * devicePixelRatio;
+  H = canvas.height = canvas.offsetHeight * devicePixelRatio;
+  canvas.style.width = canvas.offsetWidth+'px';
+}
+function initPoints(){
+  points = [];
+  for(let i=0;i<POINT_COUNT;i++){
+    points.push({
+      x: Math.random()*W, y: Math.random()*H,
+      vx:(Math.random()-0.5)*0.2, vy:(Math.random()-0.5)*0.2
+    });
+  }
+}
+function frame(){
+  ctx.clearRect(0,0,W,H);
+  points.forEach(p=>{
+    p.x += p.vx; p.y += p.vy;
+    if(p.x<0||p.x>W) p.vx*=-1;
+    if(p.y<0||p.y>H) p.vy*=-1;
+  });
+  for(let i=0;i<points.length;i++){
+    for(let j=i+1;j<points.length;j++){
+      const dx=points[i].x-points[j].x, dy=points[i].y-points[j].y;
+      const dist = Math.sqrt(dx*dx+dy*dy);
+      const maxDist = 150*devicePixelRatio;
+      if(dist<maxDist){
+        ctx.strokeStyle = `rgba(62,124,166,${(1-dist/maxDist)*0.3})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(points[i].x,points[i].y); ctx.lineTo(points[j].x,points[j].y); ctx.stroke();
+      }
+    }
+    ctx.fillStyle = 'rgba(232,163,61,0.5)';
+    ctx.beginPath(); ctx.arc(points[i].x,points[i].y,1.5*devicePixelRatio,0,Math.PI*2); ctx.fill();
+  }
+  requestAnimationFrame(frame);
+}
+window.addEventListener('resize', ()=>{resize(); initPoints();});
+resize(); initPoints(); frame();
+
+/* ============================================================
+   ADMIN ACCESS — client-side gate for this static page.
+   NOTE: this runs entirely in the visitor's browser. It is a
+   convenience lock (and a way to demo the editing UI), not real
+   server-side security — anyone can read the credentials in this
+   file's source. Don't rely on it to protect sensitive content.
+============================================================ */
+(function(){
+  const ADMIN_USER = 'ahmed';
+  const ADMIN_PASS = 'eleraky2026';
+
+  const STORE_EDITS = 'portfolio_edits';
+  const STORE_MEDIA = 'portfolio_media';
+  const STORE_PROJECTS = 'portfolio_projects';
+  const SESSION_FLAG = 'portfolio_admin_session';
+
+  const $ = (sel, root=document) => root.querySelector(sel);
+  const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+  const gearBtn = $('#gearBtn');
+  const adminBadge = $('#adminBadge');
+  const logoutBtn = $('#logoutBtn');
+  const loginModal = $('#loginModal');
+  const loginForm = $('#loginForm');
+  const loginError = $('#loginError');
+  const editModal = $('#editModal');
+  const editForm = $('#editForm');
+  const addModal = $('#addModal');
+  const addForm = $('#addForm');
+  const addProjectBtn = $('#addProjectBtn');
+  const logList = document.querySelector('.log-list');
+  const fileInput = $('#mediaFileInput');
+  const toastEl = $('#toast');
+
+  let editTargetId = null;
+  let mediaTarget = null; // {logId, kind}
+
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastEl._t);
+    toastEl._t = setTimeout(()=>toastEl.classList.remove('show'), 2600);
+  }
+
+  function readStore(key, fallback){
+    try{ const v = JSON.parse(localStorage.getItem(key)); return v || fallback; }
+    catch(e){ return fallback; }
+  }
+  function writeStore(key, val){
+    try{ localStorage.setItem(key, JSON.stringify(val)); return true; }
+    catch(e){ toast('Storage limit reached — try a smaller file.'); return false; }
+  }
+
+  function openModal(el){ el.classList.add('open'); }
+  function closeModal(el){ el.classList.remove('open'); }
+  $$('.modal-overlay').forEach(overlay=>{
+    overlay.addEventListener('click', e=>{ if(e.target === overlay) closeModal(overlay); });
+  });
+  $$('[data-close]').forEach(btn=>{
+    btn.addEventListener('click', ()=> closeModal(document.getElementById(btn.dataset.close)));
+  });
+
+  function setAdminMode(on){
+    document.body.classList.toggle('admin-mode', on);
+    if(on) sessionStorage.setItem(SESSION_FLAG, '1');
+    else sessionStorage.removeItem(SESSION_FLAG);
+  }
+
+  gearBtn.addEventListener('click', ()=>{
+    if(document.body.classList.contains('admin-mode')){
+      adminBadge.style.display = 'flex';
+      toast('You are signed in as admin.');
+      return;
+    }
+    loginError.style.display = 'none';
+    loginForm.reset();
+    openModal(loginModal);
+    setTimeout(()=> $('#loginUser').focus(), 50);
+  });
+
+  loginForm.addEventListener('submit', e=>{
+    e.preventDefault();
+    const user = $('#loginUser').value.trim();
+    const pass = $('#loginPass').value;
+    if(user === ADMIN_USER && pass === ADMIN_PASS){
+      setAdminMode(true);
+      closeModal(loginModal);
+      toast('Admin mode enabled — you can now edit projects and media.');
+    } else {
+      loginError.style.display = 'block';
+    }
+  });
+
+  logoutBtn.addEventListener('click', ()=>{
+    setAdminMode(false);
+    toast('Signed out of admin mode.');
+  });
+
+  if(sessionStorage.getItem(SESSION_FLAG) === '1') setAdminMode(true);
+
+  /* ---------- Edit existing / new entry title & description ---------- */
+  function applyEdit(entryEl, title, desc){
+    const h3 = entryEl.querySelector('.log-body h3');
+    const p = entryEl.querySelector('.log-body p');
+    if(h3) h3.textContent = title;
+    if(p) p.textContent = desc;
+  }
+
+  function wireEditButton(btn){
+    btn.addEventListener('click', e=>{
+      e.preventDefault(); e.stopPropagation();
+      const entry = btn.closest('.log-entry');
+      editTargetId = entry.dataset.logId;
+      $('#editTitle').value = entry.querySelector('.log-body h3').textContent.trim();
+      $('#editDesc').value = entry.querySelector('.log-body p').textContent.trim();
+      openModal(editModal);
+      setTimeout(()=> $('#editTitle').focus(), 50);
+    });
+  }
+  $$('.entry-edit-btn').forEach(wireEditButton);
+
+  editForm.addEventListener('submit', e=>{
+    e.preventDefault();
+    if(!editTargetId) return;
+    const title = $('#editTitle').value.trim();
+    const desc = $('#editDesc').value.trim();
+    const entry = document.querySelector(`.log-entry[data-log-id="${editTargetId}"]`);
+    if(entry) applyEdit(entry, title, desc);
+    const edits = readStore(STORE_EDITS, {});
+    edits[editTargetId] = { title, desc };
+    writeStore(STORE_EDITS, edits);
+    closeModal(editModal);
+    toast('Entry updated.');
+  });
+
+  /* ---------- Media uploads ---------- */
+  const ACCEPT = { photo:'image/*', doc:'.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt', video:'video/*' };
+  const MAX_INLINE_BYTES = 6 * 1024 * 1024; // ~6MB cap on what we inline as a data URL
+
+  function wireMediaSlot(slot){
+    slot.addEventListener('click', ()=>{
+      if(!document.body.classList.contains('admin-mode')) return;
+      const entry = slot.closest('.log-entry');
+      mediaTarget = { logId: entry.dataset.logId, kind: slot.dataset.kind };
+      fileInput.accept = ACCEPT[slot.dataset.kind] || '';
+      fileInput.value = '';
+      fileInput.click();
+    });
+    slot.addEventListener('keydown', e=>{
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); slot.click(); }
+    });
+  }
+  $$('.media-slot').forEach(wireMediaSlot);
+
+  function iconFor(kind){
+    if(kind === 'doc') return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>';
+    if(kind === 'video') return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+    return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>';
+  }
+
+  function renderMediaThumb(grid, item, logId, index){
+    const div = document.createElement('div');
+    div.className = 'media-thumb';
+    div.dataset.index = index;
+    let inner = '';
+    if(item.kind === 'photo' && item.dataUrl){
+      inner = `<img src="${item.dataUrl}" alt="${item.name}">`;
+    } else {
+      inner = `${iconFor(item.kind)}<span class="mt-name">${item.name}</span>`;
+    }
+    div.innerHTML = inner + '<button type="button" class="mt-remove" aria-label="Remove">&times;</button>';
+    div.querySelector('.mt-remove').addEventListener('click', e=>{
+      e.stopPropagation();
+      const media = readStore(STORE_MEDIA, {});
+      if(media[logId]){
+        media[logId].splice(index, 1);
+        writeStore(STORE_MEDIA, media);
+        renderAllMediaForEntry(logId);
+      }
+    });
+    grid.appendChild(div);
+  }
+
+  function renderAllMediaForEntry(logId){
+    const entry = document.querySelector(`.log-entry[data-log-id="${logId}"]`);
+    if(!entry) return;
+    const grid = entry.querySelector('.media-grid');
+    grid.querySelectorAll('.media-thumb').forEach(t=>t.remove());
+    const media = readStore(STORE_MEDIA, {});
+    (media[logId] || []).forEach((item, i)=> renderMediaThumb(grid, item, logId, i));
+    const detail = entry.querySelector('.log-detail');
+    if(entry.querySelector('.log-header').getAttribute('aria-expanded') === 'true'){
+      detail.style.maxHeight = detail.scrollHeight + 'px';
+    }
+  }
+
+  fileInput.addEventListener('change', ()=>{
+    const file = fileInput.files[0];
+    if(!file || !mediaTarget) return;
+    const { logId, kind } = mediaTarget;
+    const finish = (dataUrl)=>{
+      const media = readStore(STORE_MEDIA, {});
+      if(!media[logId]) media[logId] = [];
+      media[logId].push({ kind, name: file.name, dataUrl: dataUrl || null });
+      if(writeStore(STORE_MEDIA, media)){
+        renderAllMediaForEntry(logId);
+        toast(`${file.name} added to this project.`);
+      }
+    };
+    if(file.size <= MAX_INLINE_BYTES){
+      const reader = new FileReader();
+      reader.onload = ()=> finish(reader.result);
+      reader.readAsDataURL(file);
+    } else {
+      toast(`${file.name} is large — saved as a reference only (no preview).`);
+      finish(null);
+    }
+  });
+
+  /* ---------- Add a new project ---------- */
+  function nextLogId(){
+    const projects = readStore(STORE_PROJECTS, []);
+    const staticCount = 7;
+    const num = staticCount + projects.length + 1;
+    return { id: `log-${String(num).padStart(3,'0')}`, label: String(num).padStart(3,'0') };
+  }
+
+  function buildEntryNode(logId, label, title, desc, tags){
+    const wrap = document.createElement('div');
+    wrap.className = 'log-entry reveal in-view';
+    wrap.dataset.logId = logId;
+    const tagsHtml = (tags || []).map(t=>`<span class="tag">${t}</span>`).join('');
+    wrap.innerHTML = `
+      <button type="button" class="entry-edit-btn admin-only" data-edit-target="${logId}" aria-label="Edit this entry" title="Edit title &amp; description"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
+      <button class="log-header" type="button" aria-expanded="false">
+        <div class="log-id">LOG&nbsp;${label}</div>
+        <div class="log-body"><h3></h3><p></p></div>
+        <div class="log-tags">${tagsHtml}</div>
+        <svg class="log-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="log-detail">
+        <div class="log-detail-inner">
+          <div class="media-grid">
+            <div class="media-slot" data-kind="photo" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg><span>Photos</span><small>Add project imagery</small></div>
+            <div class="media-slot" data-kind="doc" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Documentation</span><small>Add reports, specs, or write-ups</small></div>
+            <div class="media-slot" data-kind="video" role="button" tabindex="0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>Video</span><small>Add a demo or walkthrough</small></div>
+          </div>
+        </div>
+      </div>`;
+    applyEdit(wrap, title, desc);
+    wireEntryBehaviors(wrap);
+    return wrap;
+  }
+
+  function wireEntryBehaviors(entry){
+    wireEditButton(entry.querySelector('.entry-edit-btn'));
+    $$('.media-slot', entry).forEach(wireMediaSlot);
+    const header = entry.querySelector('.log-header');
+    header.addEventListener('click', ()=>{
+      const detail = header.nextElementSibling;
+      const isOpen = header.getAttribute('aria-expanded') === 'true';
+      if(isOpen){
+        header.setAttribute('aria-expanded','false');
+        detail.style.maxHeight = null;
+      } else {
+        header.setAttribute('aria-expanded','true');
+        detail.style.maxHeight = detail.scrollHeight + 'px';
+      }
+    });
+  }
+
+  addProjectBtn.addEventListener('click', ()=>{
+    addForm.reset();
+    openModal(addModal);
+    setTimeout(()=> $('#addTitle').focus(), 50);
+  });
+
+  addForm.addEventListener('submit', e=>{
+    e.preventDefault();
+    const title = $('#addTitle').value.trim();
+    const desc = $('#addDesc').value.trim();
+    const tags = $('#addTags').value.split(',').map(t=>t.trim()).filter(Boolean);
+    const { id, label } = nextLogId();
+    const projects = readStore(STORE_PROJECTS, []);
+    projects.push({ id, label, title, desc, tags });
+    if(!writeStore(STORE_PROJECTS, projects)) return;
+    const node = buildEntryNode(id, label, title, desc, tags);
+    logList.insertBefore(node, addProjectBtn);
+    closeModal(addModal);
+    toast('New project added.');
+  });
+
+  /* ---------- Restore persisted state on load ---------- */
+  function restoreState(){
+    const projects = readStore(STORE_PROJECTS, []);
+    projects.forEach(proj=>{
+      const node = buildEntryNode(proj.id, proj.label, proj.title, proj.desc, proj.tags);
+      logList.insertBefore(node, addProjectBtn);
+    });
+    const edits = readStore(STORE_EDITS, {});
+    Object.keys(edits).forEach(logId=>{
+      const entry = document.querySelector(`.log-entry[data-log-id="${logId}"]`);
+      if(entry) applyEdit(entry, edits[logId].title, edits[logId].desc);
+    });
+    const media = readStore(STORE_MEDIA, {});
+    Object.keys(media).forEach(logId=> renderAllMediaForEntry(logId));
+  }
+  restoreState();
+})();
+</script>
+</body>
+</html>
